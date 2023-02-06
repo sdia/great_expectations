@@ -291,6 +291,13 @@ class PandasDatasource(LegacyDatasource):
         elif path.endswith(".sas7bdat") or path.endswith(".xpt"):
             return {"reader_method": "read_sas"}
 
+        elif path.endswith("jsonl.gz"):
+            print("hey")
+            return {
+                "reader_method": "read_json",
+                "reader_options": {"compression": "gzip"},
+            }
+
         raise BatchKwargsError(
             f"Unable to determine reader method from path: {path}",
             {"path": path},
